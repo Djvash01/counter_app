@@ -8,8 +8,22 @@ class CounterScreen extends StatefulWidget {
 }
 
 class _CounterScreenState extends State<CounterScreen> {
-
   int counter = 10;
+
+  void increase() {
+    counter++;
+    setState(() {});
+  }
+
+  void reset() {
+    counter = 0;
+    setState(() {});
+  }
+
+  void decrease() {
+    counter--;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,37 +64,45 @@ class _CounterScreenState extends State<CounterScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          FloatingActionButton(
-            child: const Icon(Icons.exposure_minus_1_outlined),
-            onPressed: () {
-              counter--;
-              setState(() { 
-              });
-            },
-          ),
-          const SizedBox(width: 20,),
-          FloatingActionButton(
-            child: const Icon(Icons.restart_alt_outlined),
-            onPressed: () {
-              counter = 0;
-              setState(() { 
-              });
-            },
-          ),
-          const SizedBox(width: 20,),
-          FloatingActionButton(
-            child: const Icon(Icons.exposure_plus_1_outlined),
-            onPressed: () {
-              counter++;
-              setState(() { 
-              });
-            },
-          ),
-        ],
+      floatingActionButton: CustomFloatingActions(
+        increaseFn: increase,
+        decreaseFn: decrease,
+        resetFn: reset,
       ),
+    );
+  }
+}
+
+class CustomFloatingActions extends StatelessWidget {
+  final Function increaseFn;
+  final Function resetFn;
+  final Function decreaseFn;
+  
+  const CustomFloatingActions({
+    Key? key,
+    required this.increaseFn,
+    required this.resetFn,
+    required this.decreaseFn
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        FloatingActionButton(
+          onPressed: () => decreaseFn(),
+          child: const Icon(Icons.exposure_minus_1_outlined),
+        ),
+        FloatingActionButton(
+          onPressed: () => resetFn(),
+          child: const Icon(Icons.restart_alt_outlined),
+        ),
+        FloatingActionButton(
+          onPressed: () => increaseFn(),
+          child: const Icon(Icons.exposure_plus_1_outlined),
+        ),
+      ],
     );
   }
 }
