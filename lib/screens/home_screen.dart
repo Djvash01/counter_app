@@ -5,8 +5,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     const TextStyle fontSize30 = TextStyle(fontSize: 30);
+    int counter = 10;
 
     return Scaffold(
       appBar: AppBar(
@@ -19,39 +19,35 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: const <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text('david'),
-              accountEmail: Text('email.@email.com')
+                accountName: Text('david'),
+                accountEmail: Text('email.@email.com')),
+            ListTile(leading: Icon(Icons.message), title: Text('Messages')),
+            ListTile(
+              leading: Icon(Icons.message),
+              title: Text('Messages'),
             ),
-
             ListTile(
               leading: Icon(Icons.message),
               title: Text('Messages'),
-              tileColor: Colors.red,
-            ),  
-            ListTile(
-              leading: Icon(Icons.message),
-              title: Text('Messages'),
-            ),  
-            ListTile(
-              leading: Icon(Icons.message),
-              title: Text('Messages'),
-            ),  
+            ),
           ],
         ),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
-            Text('Clicks counter', style: fontSize30),
-            Text('0', style: fontSize30),
+          children: <Widget>[
+            const Text('Contador clicks', style: fontSize30),
+            Text('$counter', style: fontSize30),
           ],
         ),
       ),
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        child:const Icon(Icons.add),
-        onPressed: () {},
+        child: const Icon(Icons.add),
+        onPressed: () {
+          counter++;
+        },
       ),
     );
   }
